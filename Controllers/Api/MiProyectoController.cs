@@ -10,7 +10,7 @@ public class MiProyectoController: ControllerBase {
         var proyecto = new MiProyecto
         {
             Integrante1 = "Nayeli Meza Sanchez",
-            Integrante2 = "Frida Sofia Mejia Hernandez"
+            Integrante2 = "Frida Sofia Mejia Hernandez" 
         };
 
         return Ok(proyecto);
