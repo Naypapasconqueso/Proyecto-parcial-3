@@ -3,7 +3,8 @@ using MongoDB.Driver;
 
 [ApiController]
 [Route("mi-proyecto")]
-public class MiProyectoController: ControllerBase {
+public class MiProyectoController: ControllerBase
+ {
     [HttpGet("Integrantes")]
     public ActionResult<MiProyecto> Integrantes()
     {
@@ -17,12 +18,15 @@ public class MiProyectoController: ControllerBase {
     }
 
     [HttpGet("presentacion")]
-    public IActionResult Presentacion(){
-        MongoClient client = new MongoClient(CadenasConexion.MONGO_DB);
-        var db = client.GetDatabase("Escuela_Nayeli_Frida");
-        var collection = db.GetCollection<Equipo>("Equipo");
+    public IActionResult Presentacion()
+    {
 
-        var list = collection.Find(FilterDefinition<Equipo>.Empty).ToList();
-        return Ok(list);
+        var client = new MongoClient(CadenasConexion.MONGO_DB);
+        var database = client.GetDatabase("Escuela_Nayeli_Frida");
+        var collection = database.GetCollection<Equipo>("Equipo");
+
+        var filter =FilterDefinition<Equipo>.Empty;
+        var item = collection.Find(filter).FirstOrDefault();
+        return Ok(item);
     }
 }
