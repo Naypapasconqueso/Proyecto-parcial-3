@@ -1,9 +1,9 @@
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-public class Equipo{
-    [BsonId]
-
-    [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+public class Equipo
+{
+    [BsonId, BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
     public string? Id { get; set; }
     
     [BsonElement("escuela")]
