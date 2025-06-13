@@ -35,4 +35,16 @@ public class ApiUsuariosController: ControllerBase
         
         return Ok(list);
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(string id)
+    {
+        var filter = Builders<Usuario>.Filter.Eq(x => x.Id, id);
+        var item = this.collection.Find(filter).FirstOrDefault();
+        if(item != null)
+        {
+            this.collection.DeleteOne(filter);
+        }
+        return NoContent();
+    }
 }

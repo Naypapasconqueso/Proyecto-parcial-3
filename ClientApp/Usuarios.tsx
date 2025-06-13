@@ -16,7 +16,7 @@ const Usuarios = () => {
         let url = "/api/usuarios";
 
         if(texto) {
-            url += "texto=" + texto;
+            url += "?texto=" + texto;
         }
 
         const resp = await fetch(url);
@@ -25,13 +25,32 @@ const Usuarios = () => {
             setRegistros(datos);
         }
     }
-}
-    useEffect(()=>{
+
+    useEffect(() =>{ 
         listarRegistros();
     }, []);
 
     const buscar = () => {
         listarRegistros();
+    }
+
+    const eliminar = async (item: Usuario) => {
+        if(!confirm("¿Desea eliminar el usuario" + item.Nombre + "?")){
+            return;
+        }
+
+        const resp = await fetch("/api/usuarios/" + item.Id, {
+            method: "DELETE"
+        })
+
+        if(resp.ok){
+            listarRegistros();
+        }
+        else {
+            const error = await resp.text();
+            console.log(error);
+            alert("Ocurrió un error al eliminar el registro");
+        }
     }
 
     //Vista
@@ -94,7 +113,7 @@ const Usuarios = () => {
                                                 <td>{item.Password}</td>
                                                 <td className="d-flex gap-2">
                                                     <a className="btn btn-primary" href={"/usuarios/" + item.Id}>Editar</a>
-                                                    <button className="btn btn-danger">Eliminar</button>
+                                                    <button className="btn btn-danger" onClick={()=> eliminar(item)}>Eliminar</button>
                                                 </td>
                                             </tr>
                                             )
@@ -107,7 +126,7 @@ const Usuarios = () => {
                 </div>
             </>
     )
-}
 
+}
 export default Usuarios;
 
