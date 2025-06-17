@@ -82,43 +82,46 @@ const Usuarios = () => {
 
             <div className="container mt-4">
                 <div className="card">
-                    <div className="card-hearder">Usuarios existentes</div>
-                        <div className="card-body">
-                            <table className="table table-striped">
-                                <thead>
+                    <div className="card-header d-flex justify-content-between align-items-center">
+                        Usuarios existentes
+                        <a href="/usuarios/editar" className="btn btn-primary">Nuevo</a>
+                    </div>
+                    <div className="card-body">
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th>Password</th>
+                                </tr>
+                            </thead>
+                            {
+                                registros.length === 0 &&
+                                <tbody>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Nombre</th>
-                                        <th>Correo</th>
-                                        <th>Password</th>
+                                        <td colSpan={5}>No hay registros para mostrar</td>
                                     </tr>
-                                </thead>
-                                {
-                                    registros.length === 0 &&
-                                    <tbody>
+                                </tbody>
+                            }
+                            {
+                                registros.length > 0 &&
+                                <tbody>
+                                    {
+                                        registros.map((item, index) => 
                                         <tr>
-                                            <td colSpan={5}>No hay registros para mostrar</td>
+                                            <td>{index + 1}</td>
+                                            <td>{item.Nombre}</td>
+                                            <td>{item.Correo}</td>
+                                            <td>{item.Password}</td>
+                                            <td className="d-flex gap-2">
+                                                <a className="btn btn-primary" href={"/usuarios/editar/" + item.Id}>Editar</a>
+                                                <button className="btn btn-danger" onClick={()=> eliminar(item)}>Eliminar</button>
+                                            </td>
                                         </tr>
-                                    </tbody>
-                                }
-                                {
-                                    registros.length > 0 &&
-                                    <tbody>
-                                        {
-                                            registros.map((item, index) => 
-                                            <tr>
-                                                <td>{index + 1}</td>
-                                                <td>{item.Nombre}</td>
-                                                <td>{item.Correo}</td>
-                                                <td>{item.Password}</td>
-                                                <td className="d-flex gap-2">
-                                                    <a className="btn btn-primary" href={"/usuarios/" + item.Id}>Editar</a>
-                                                    <button className="btn btn-danger" onClick={()=> eliminar(item)}>Eliminar</button>
-                                                </td>
-                                            </tr>
-                                            )
-                                        }
-                                    </tbody>
+                                        )
+                                    }
+                                </tbody>
                                 }
                             </table>
                         </div>
