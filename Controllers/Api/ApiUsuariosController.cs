@@ -91,7 +91,7 @@ public class ApiUsuariosController: ControllerBase
     {
         var filter = Builders<Usuario>.Filter.Eq(x => x.Id, id);
         var item = this.collection.Find(filter).FirstOrDefault();
-        if(item != null)
+        if(item == null)
         {
             return NotFound("No existe un usuario con el ID proporcionado");
         }
@@ -122,7 +122,7 @@ public class ApiUsuariosController: ControllerBase
         var item = this.collection.Find(filter).FirstOrDefault();
         if (item == null)
         {
-            return NotFound("No dxiste un ussuario con el ID proporcionado");
+            return NotFound("No existe un usuario con el ID proporcionado");
         }
 
         //Validar que el correo no exista
